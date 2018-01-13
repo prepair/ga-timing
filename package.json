@@ -1,0 +1,40 @@
+{
+  "name": "@prepair/ga-timing",
+  "version": "1.0.0",
+  "description": "Google Analytics user timings helper for UI component metrics",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "shx rm -rf lib && babel src -d lib",
+    "lint": "eslint src",
+    "precommit": "npm run lint && npm test",
+    "release": "npm run build && git status --porcelain && git checkout master && git pull origin master && standard-version && git push --follow-tags origin master && npm publish --access=public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prepair/ga-timing.git"
+  },
+  "author": "Zsolt Vad <zsolt.vad@outlook.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/prepair/ga-timing/issues"
+  },
+  "homepage": "https://github.com/prepair/ga-timing#readme",
+  "dependencies": {
+    "loglevel": "^1.4.1"
+  },
+  "devDependencies": {
+    "babel-cli": "6.26.0",
+    "babel-plugin-transform-object-rest-spread": "6.26.0",
+    "babel-preset-es2015-ie": "6.7.0",
+    "eslint": "4.8.0",
+    "eslint-config-semistandard": "11.0.0",
+    "eslint-config-standard": "10.2.1",
+    "eslint-plugin-import": "2.7.0",
+    "eslint-plugin-node": "5.2.0",
+    "eslint-plugin-promise": "3.5.0",
+    "eslint-plugin-standard": "3.0.1",
+    "husky": "0.14.3",
+    "shx": "0.2.2",
+    "standard-version": "4.3.0"
+  }
+}
