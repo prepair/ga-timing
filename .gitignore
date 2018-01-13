@@ -57,6 +57,9 @@ typings/
 # dotenv environment variables file
 .env
 
+# Build
+lib/
+
 # OS junks
 .DS_Store
 Thumbs.db
