@@ -1,13 +1,15 @@
-[
-  {
-    "name": "timingCategory.timingVar",
-    "conditions": {
-      "interactivity": ["COND_0"],
-      "loadCompletion": ["COND_1", "COND_2"]
-    },
-    "analytics": {
-      "timingCategory": "Timing category",
-      "timingVar": "Timing var"
+{
+  "userTimingConfigurations": [
+    {
+      "name": "timingCategory.timingVar",
+      "conditions": {
+        "interactivity": ["COND_0"],
+        "loadCompletion": ["COND_1", "COND_2"]
+      },
+      "analytics": {
+        "timingCategory": "Timing category",
+        "timingVar": "Timing var"
+      }
     }
-  }
-]
+  ]
+}

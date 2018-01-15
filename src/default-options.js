@@ -2,7 +2,7 @@ import { getSessionItem, setSessionItem } from './session-storage';
 import { get } from './request';
 
 export const getDefaultOptions = () => ({
-  key: 'timing',
+  key: 'userTimingConfigurations',
   isAutoReset: false,
   storageManagerInterface: {
     getItem: getSessionItem,

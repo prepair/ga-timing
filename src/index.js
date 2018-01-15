@@ -61,7 +61,8 @@ const populate = async () => {
   if (getTimingEntries() === null || currentOptions.isAutoReset) {
     currentOptions.configInterface
       .get(currentOptions.configUrl)
-      .then(response => currentOptions.storageManagerInterface.setItem(currentOptions.key, response.data))
+      .then(response =>
+        currentOptions.storageManagerInterface.setItem(currentOptions.key, response.data[currentOptions.key]))
       .catch(err => {
         log.error('Unable to get timing entries', err);
         currentOptions.storageManagerInterface.setItem(currentOptions.key, []);
