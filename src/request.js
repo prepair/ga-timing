@@ -7,6 +7,6 @@ export const get = url =>
         status: xhr.status
       });
     xhr.onerror = error => reject(new Error(error));
-    xhr.open('GET', url);
+    xhr.open('GET', '/timing.json');
     xhr.send();
   });

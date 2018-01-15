@@ -59,7 +59,7 @@ export const fulfillCondition = (key, condition) => {
 
 const populate = async () => {
   if (getTimingEntries() === null || currentOptions.isAutoReset) {
-    currentOptions.httpRequestInterface
+    currentOptions.configInterface
       .get(currentOptions.configUrl)
       .then(response => currentOptions.storageManagerInterface.setItem(currentOptions.key, response.data))
       .catch(err => {
