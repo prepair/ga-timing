@@ -15,7 +15,7 @@ export const setup = options => {
   populate();
 };
 
-export const startTracking = key => {
+export const startTracking = (key, startedAt = new Date().getTime()) => {
   let entries = getTimingEntries();
   let entryIndex = getEntryIndex(key, entries);
 
@@ -23,7 +23,7 @@ export const startTracking = key => {
     return;
   }
 
-  entries[entryIndex].startedAt = new Date().getTime();
+  entries[entryIndex].startedAt = startedAt;
   setTimingEntries(entries);
 };
 
