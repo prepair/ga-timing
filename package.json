@@ -1,6 +1,6 @@
 {
   "name": "@prepair/ga-timing",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Google Analytics user timings helper for UI component metrics",
   "main": "lib/index.js",
   "scripts": {
