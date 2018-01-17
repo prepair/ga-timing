@@ -19,7 +19,7 @@ export const startTracking = (key, startedAt = new Date().getTime()) => {
   let entries = getTimingEntries();
   let entryIndex = getEntryIndex(key, entries);
 
-  if (entryIndex) {
+  if (entryIndex === -1) {
     return;
   }
 
@@ -31,11 +31,16 @@ export const fulfillCondition = (key, condition) => {
   let entries = getTimingEntries();
   let entryIndex = getEntryIndex(key, entries);
 
-  if (entryIndex) {
+  if (entryIndex === -1) {
     return;
   }
 
   let entry = entries[entryIndex];
+
+  if (!entry.startedAt) {
+    return;
+  }
+
   let interactivityConditions = entry.conditions.interactivity;
   let loadCompletionConditions = entry.conditions.loadCompletion;
 
