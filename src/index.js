@@ -100,8 +100,8 @@ const trackForLoadCompletion = entry => {
 };
 
 const track = (entry, conditionType) => {
-  let { timingCategory, timingVar } = entry.analytics;
+  let { timingCategory } = entry.analytics;
   const diff = new Date().getTime() - entry.startedAt;
   // 'send', 'timing', 'timingCategory', 'timingVar', 'timingVal', 'timingLabel'
-  currentOptions.googleAnalyticsInterface('send', 'timing', timingCategory, timingVar, diff, conditionType);
+  currentOptions.googleAnalyticsInterface('send', 'timing', timingCategory, conditionType, diff);
 };

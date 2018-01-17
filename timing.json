@@ -1,14 +1,13 @@
 {
   "userTimingConfigurations": [
     {
-      "name": "timingCategory.timingVar",
+      "name": "timingCategory.childCategory",
       "conditions": {
         "interactivity": ["COND_0"],
         "loadCompletion": ["COND_1", "COND_2"]
       },
       "analytics": {
-        "timingCategory": "Timing category",
-        "timingVar": "Timing var"
+        "timingCategory": "Timing category / Child category"
       }
     }
   ]
