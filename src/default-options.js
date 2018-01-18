@@ -4,12 +4,12 @@ import { get } from './request';
 export const getDefaultOptions = () => ({
   key: 'userTimingConfigurations',
   isAutoReset: false,
-  storageManagerInterface: {
+  storageApi: {
     getItem: getSessionItem,
     setItem: setSessionItem
   },
-  configInterface: {
+  configApi: {
     get
   },
-  googleAnalyticsInterface: window.ga
+  googleAnalyticsApi: window.ga
 });
