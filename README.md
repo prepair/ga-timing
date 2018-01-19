@@ -8,8 +8,10 @@ npm i -S @prepair/ga-timing
 
 ```js
 import { setup } from @prepair/ga-timing;
-import { myCustomGetStorageItem, myCustomSetStorageItem, myCustomGetConfig } form '../my-custom';
+import { myCustomGetStorageItem, myCustomSetStorageItem, myCustomGetConfig } from '../my-custom';
+
 ...
+
 setup({
     isAutoReset: false,
     storageApi: {
@@ -55,12 +57,16 @@ setup({
 import * as gaTiming from @prepair/ga-timing;
 
 const TIMING_CATEGORY = 'timingCategory.childCategory';
+
 ...
+
 onStart () {
     gaTiming.startTracking(TIMING_CATEGORY);
     // OR gaTiming.startTracking(TIMING_CATEGORY, window.performance.timing.*)
 }
+
 ...
+
 componentReady () {
     gaTiming.fulfillCondition(TIMING_CATEGORY, 'COND_0');
     // emits the following GA 'timing' event
