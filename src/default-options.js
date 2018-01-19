@@ -4,6 +4,7 @@ import { get } from './request';
 export const getDefaultOptions = () => ({
   key: 'userTimingConfigurations',
   isAutoReset: false,
+  isTrackingEnabled: true,
   storageApi: {
     getItem: getSessionItem,
     setItem: setSessionItem

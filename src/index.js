@@ -126,5 +126,7 @@ const track = (entry, conditionType) => {
   let { timingCategory } = entry.analytics;
   const diff = new Date().getTime() - entry.startedAt;
   // 'send', 'timing', 'timingCategory', 'timingVar', 'timingVal', 'timingLabel'
-  currentOptions.googleAnalyticsApi('send', 'timing', timingCategory, conditionType, diff);
+  if (currentOptions.isTrackingEnabled) {
+    currentOptions.googleAnalyticsApi('send', 'timing', timingCategory, conditionType, diff);
+  }
 };
