@@ -28,7 +28,12 @@ export const startTracking = (key, startedAt = new Date().getTime()) => {
     return;
   }
 
-  entries[entryIndex].startedAt = startedAt;
+  let entry = entries[entryIndex];
+  entry.startedAt = startedAt;
+  entry.fulfilledConditions = {
+    interactivity: [],
+    loadCompletion: []
+  };
   setEntries(entries);
 };
 
@@ -48,20 +53,23 @@ export const fulfillCondition = (key, condition) => {
 
   let interactivityConditions = entry.conditions.interactivity;
   let loadCompletionConditions = entry.conditions.loadCompletion;
+  let fulfilledInteractivityConditions = entry.fulfilledConditions.interactivity;
+  let fulfilledLoadCompletionConditions = entry.fulfilledConditions.loadCompletion;
 
-  let isInteractivityAlreadyTracked = isEmpty(interactivityConditions);
-  let isLoadCompletionAlreadyTracked = isInteractivityAlreadyTracked && isEmpty(loadCompletionConditions);
+  let isInteractivityAlreadyTracked = hasSameElements(interactivityConditions, fulfilledInteractivityConditions);
+  let isLoadCompletionAlreadyTracked =
+    isInteractivityAlreadyTracked && hasSameElements(loadCompletionConditions, fulfilledLoadCompletionConditions);
 
   // update conditions and track if needed
 
   if (!isInteractivityAlreadyTracked) {
-    entry.conditions.interactivity = removeCondition(interactivityConditions, condition);
+    addCondition(interactivityConditions, fulfilledInteractivityConditions, condition);
     setEntries(entries);
     trackForInteractivity(entry);
   }
 
   if (!isLoadCompletionAlreadyTracked) {
-    entry.conditions.loadCompletion = removeCondition(loadCompletionConditions, condition);
+    addCondition(loadCompletionConditions, fulfilledLoadCompletionConditions, condition);
     setEntries(entries);
     trackForLoadCompletion(entry);
   }
@@ -87,18 +95,29 @@ const getEntryIndex = (key, entries) => entries.findIndex(entry => new RegExp(en
 
 const isEmpty = array => array.length === 0;
 
-const removeCondition = (conditions, conditionToBeRemoved) =>
-  conditions.filter(condition => !new RegExp(condition, 'i').test(conditionToBeRemoved));
+const hasSameElements = (array1, array2) => array1.sort().join(',') === array2.sort().join(',');
+
+const addCondition = (conditions, fulfilledConditions, conditionToBeAdded) => {
+  if (conditions.indexOf(conditionToBeAdded) !== -1 && fulfilledConditions.indexOf(conditionToBeAdded) === -1) {
+    fulfilledConditions.push(conditionToBeAdded);
+  }
+};
 
 const trackForInteractivity = entry => {
-  if (isEmpty(entry.conditions.interactivity)) {
+  let { conditions, fulfilledConditions } = entry;
+
+  if (hasSameElements(conditions.interactivity, fulfilledConditions.interactivity)) {
     track(entry, TIMING_LABEL_INTERACTIVITY);
   }
 };
 
 const trackForLoadCompletion = entry => {
-  let conditions = entry.conditions;
-  if (isEmpty(conditions.interactivity) && isEmpty(conditions.loadCompletion)) {
+  let { conditions, fulfilledConditions } = entry;
+
+  if (
+    hasSameElements(conditions.interactivity, fulfilledConditions.interactivity) &&
+    hasSameElements(conditions.loadCompletion, fulfilledConditions.loadCompletion)
+  ) {
     track(entry, TIMING_LABEL_LOAD_COMPLETION);
   }
 };
