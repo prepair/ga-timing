@@ -30,8 +30,8 @@ setup({
 | - | - | - | - |
 | key | **String** | `userTimingConfigurations` | the root key of the config JSON and the key for the storage item |
 | isAutoReset | **Boolean** | `false`  | if `true` it loads the default configuration into the storage on every page load |
-| storageApi | **Object** | [default implementation](../blob/master/src/session-storage.js) | get and set methods for interacting the storage |
-| configApi | **Object** | [default implementation](../blob/master/src/request.js) | XHR request wrapper for config endpoint |
+| storageApi | **Object** | [default implementation](../master/src/session-storage.js) | get and set methods for interacting the storage |
+| configApi | **Object** | [default implementation](../master/src/request.js) | XHR request wrapper for config endpoint |
 | googleAnalyticsApi | **Object** | `window.ga` | Google Analytics object |
 
 ## Example for config JSON
