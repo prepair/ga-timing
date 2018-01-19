@@ -7,7 +7,7 @@ npm i -S @prepair/ga-timing
 ## Setup
 
 ```js
-import { setup } from @prepair/ga-timing;
+import { setup } from '@prepair/ga-timing';
 import { myCustomGetStorageItem, myCustomSetStorageItem, myCustomGetConfig } from '../my-custom';
 
 ...
@@ -54,7 +54,7 @@ setup({
 
 ## Tracking example
 ```js
-import * as gaTiming from @prepair/ga-timing;
+import * as gaTiming from '@prepair/ga-timing';
 
 const TIMING_CATEGORY = 'timingCategory.childCategory';
 
