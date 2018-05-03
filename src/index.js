@@ -17,7 +17,16 @@ export const setup = options => {
     ...options
   };
 
-  populate();
+  if (currentOptions.isAutoReset) {
+    populate();
+    return;
+  }
+
+  if (!isEmpty(getEntries())) {
+    resetPartiallyTrackedEntries();
+  } else {
+    populate();
+  }
 };
 
 export const startTracking = (key, startedAt = new Date().getTime()) => {
@@ -34,6 +43,20 @@ export const startTracking = (key, startedAt = new Date().getTime()) => {
     interactivity: [],
     loadCompletion: []
   };
+  setEntries(entries);
+};
+
+export const resetTracking = key => {
+  let entries = getEntries();
+  let entryIndex = getEntryIndex(key, entries);
+
+  if (entryIndex === -1) {
+    return;
+  }
+
+  let { name, conditions, analytics } = entries[entryIndex];
+  entries[entryIndex] = { name, conditions, analytics };
+
   setEntries(entries);
 };
 
@@ -76,15 +99,29 @@ export const fulfillCondition = (key, condition) => {
 };
 
 const populate = () => {
-  if (isEmpty(getEntries()) || currentOptions.isAutoReset) {
-    currentOptions.configApi
-      .get(currentOptions.configUrl)
-      .then(response => currentOptions.storageApi.setItem(currentOptions.key, response.data[currentOptions.key]))
-      .catch(err => {
-        log.error('Unable to get timing entries', err);
-        currentOptions.storageApi.setItem(currentOptions.key, []);
-      });
-  }
+  currentOptions.configApi
+    .get(currentOptions.configUrl)
+    .then(response => currentOptions.storageApi.setItem(currentOptions.key, response.data[currentOptions.key]))
+    .catch(err => {
+      log.error('Unable to get timing entries', err);
+      currentOptions.storageApi.setItem(currentOptions.key, []);
+    });
+};
+
+const resetPartiallyTrackedEntries = () => {
+  let entries = getEntries();
+  let rawEntries = entries
+    .filter(
+      ({ conditions, fulfilledConditions }) =>
+        !(
+          fulfilledConditions &&
+          hasSameElements(conditions.interactivity, fulfilledConditions.interactivity) &&
+          hasSameElements(conditions.loadCompletion, fulfilledConditions.loadCompletion)
+        )
+    )
+    .map(({ name, conditions, analytics }) => ({ name, conditions, analytics }));
+
+  setEntries(rawEntries);
 };
 
 const getEntries = () => currentOptions.storageApi.getItem(currentOptions.key) || [];
