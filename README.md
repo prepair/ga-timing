@@ -13,8 +13,8 @@ import { myCustomGetStorageItem, myCustomSetStorageItem, myCustomGetConfig } fro
 ...
 
 setup({
-		isAutoReset: false,
-		isTrackingEnabled: true,
+    isAutoReset: false,
+    isTrackingEnabled: true,
     storageApi: {
         getItem: myCustomGetStorageItem,
         setItem: myCustomSetStorageItem

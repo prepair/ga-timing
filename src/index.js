@@ -5,6 +5,7 @@ const TIMING_LABEL_INTERACTIVITY = 'Interactivity';
 const TIMING_LABEL_LOAD_COMPLETION = 'Load completion';
 
 let currentOptions;
+let hashHistory = [];
 
 export const setup = options => {
   if (currentOptions) {
@@ -16,6 +17,8 @@ export const setup = options => {
     ...getDefaultOptions(),
     ...options
   };
+
+  handleGoBackEvent();
 
   if (currentOptions.isAutoReset) {
     populate();
@@ -124,6 +127,24 @@ const resetPartiallyTrackedEntries = () => {
   setEntries(rawEntries);
 };
 
+const handleGoBackEvent = () => {
+  window.addEventListener(
+    'popstate',
+    event => {
+      let newHash = window.location.hash;
+
+      if (newHash === getLastButOne(hashHistory)) {
+        resetPartiallyTrackedEntries();
+        hashHistory.pop();
+        return;
+      }
+
+      hashHistory.push(newHash);
+    },
+    false
+  );
+};
+
 const getEntries = () => currentOptions.storageApi.getItem(currentOptions.key) || [];
 
 const setEntries = entries => currentOptions.storageApi.setItem(currentOptions.key, entries);
@@ -131,6 +152,8 @@ const setEntries = entries => currentOptions.storageApi.setItem(currentOptions.k
 const getEntryIndex = (key, entries) => entries.findIndex(entry => new RegExp(entry.name, 'i').test(key));
 
 const isEmpty = array => array.length === 0;
+
+const getLastButOne = array => array[array.length - 2];
 
 const hasSameElements = (array1, array2) => array1.sort().join(',') === array2.sort().join(',');
 
