@@ -49,6 +49,18 @@ export const startTracking = (key, startedAt = new Date().getTime()) => {
   setEntries(entries);
 };
 
+export const skipTracking = key => {
+  let entries = getEntries();
+  let entryIndex = getEntryIndex(key, entries);
+
+  if (entryIndex === -1) {
+    return;
+  }
+
+  entries.splice(entryIndex, 1);
+  setEntries(entries);
+};
+
 export const resetTracking = key => {
   let entries = getEntries();
   let entryIndex = getEntryIndex(key, entries);
@@ -130,7 +142,7 @@ const resetPartiallyTrackedEntries = () => {
 const handleGoBackEvent = () => {
   window.addEventListener(
     'popstate',
-    event => {
+    () => {
       let newHash = window.location.hash;
 
       if (newHash === getLastButOne(hashHistory)) {

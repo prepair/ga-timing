@@ -84,4 +84,12 @@ onLoad2 () {
     // emits the following GA 'timing' event
     // timingCategory: TIMING_CATEGORY, timingVar: 'Load completion', timingVal: ~2000
 }
+
+...
+
+onSpecialEvent () {
+	gaTiming.skipTracking(TIMING_CATEGORY);
+}
+
+...
 ```
