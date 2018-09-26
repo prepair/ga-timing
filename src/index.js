@@ -197,8 +197,11 @@ const trackForLoadCompletion = entry => {
 const track = (entry, conditionType) => {
   let { timingCategory } = entry.analytics;
   const diff = new Date().getTime() - entry.startedAt;
-  // 'send', 'timing', 'timingCategory', 'timingVar', 'timingVal', 'timingLabel'
   if (currentOptions.isTrackingEnabled) {
-    currentOptions.googleAnalyticsApi('send', 'timing', timingCategory, conditionType, diff);
+    currentOptions.googleAnalyticsApi('event', 'timing_complete', {
+      'name': conditionType,
+      'value': diff,
+      'event_category': timingCategory
+    });
   }
 };

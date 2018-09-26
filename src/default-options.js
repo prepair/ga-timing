@@ -12,5 +12,5 @@ export const getDefaultOptions = () => ({
   configApi: {
     get
   },
-  googleAnalyticsApi: window.ga
+  googleAnalyticsApi: window.gtag
 });

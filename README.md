@@ -22,7 +22,7 @@ setup({
     configApi: {
         get: myCustomGetConfig
     },
-    googleAnalyticsApi: window.ga
+    googleAnalyticsApi: window.gtag
 });
 ```
 
@@ -34,7 +34,7 @@ setup({
 | isTrackingEnabled | **Boolean** | `true`  | if `false` it won't call the googleAnalyticsApi |
 | storageApi | **Object** | [default implementation](../master/src/session-storage.js) | get and set methods for interacting the storage |
 | configApi | **Object** | [default implementation](../master/src/request.js) | XHR request wrapper for config endpoint |
-| googleAnalyticsApi | **Object** | `window.ga` | Google Analytics object |
+| googleAnalyticsApi | **Object** | `window.gtag` | Google Analytics gtag object |
 
 ## Example for config JSON
 ```json
