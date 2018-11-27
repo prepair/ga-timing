@@ -194,18 +194,10 @@ const trackForLoadCompletion = entry => {
   }
 };
 
-const emptyConfig = () => {
-  const trackingId = window.ga.getAll()[0].get('trackingId');
-  currentOptions.googleAnalyticsApi('config', trackingId, {
-    send_page_view: false
-  });
-};
-
 const track = (entry, conditionType) => {
   let { timingCategory } = entry.analytics;
   const diff = new Date().getTime() - entry.startedAt;
   if (currentOptions.isTrackingEnabled) {
-    emptyConfig();
     currentOptions.googleAnalyticsApi('event', 'timing_complete', {
       name: conditionType,
       value: diff,
